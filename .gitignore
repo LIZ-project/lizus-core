@@ -1,4 +1,17 @@
 
-src/\.DS_Store
+\.DS_Store
+\.DS_Store?
+**/\.DS_Store
 
-src/qt/\.DS_Store
+
+alertkey\.hex
+
+alertkey\.pem
+
+genesiscoinbase\.hex
+
+genesiscoinbase\.pem
+
+testnetalert\.hex
+
+testnetalert\.pem

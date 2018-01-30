@@ -63,7 +63,7 @@ public:
         pchMessageStart[1] = 0xec;
         pchMessageStart[2] = 0xa1;
         pchMessageStart[3] = 0xc7;
-        vAlertPubKey = ParseHex("04385de46b70a844e6ad1481322483d60c7b866399573a7791fb721beac91569cf9d4ce2f844132f09a58260d0e3c3117f36d7749b99cd9dd96d7c6ad8fef289d8");        
+        vAlertPubKey = ParseHex("04ef0114c2f98ffa5ce31beddacec699e1b267888ec2f71ef4e78e007155d23ed38cf5836f8724e23c1dee43dbdefc7a9764f6d93044ced1c29404f35b10d46ea4");
         nDefaultPort = 19700;
         nRPCPort = 19701;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
@@ -107,7 +107,7 @@ public:
         nPoolMaxTransactions = 3;
      
         strDarksendPoolDummyAddress = "9frEPbxv2ANZzrViEqTCWaBL8S63FQHz9s";
-        nLastPOWBlock = 2628000; // 5 years
+        nLastPOWBlock = 2685000; // 5 years
         nPOSStartBlock = 100;
     }
 

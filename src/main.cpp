@@ -1352,6 +1352,23 @@ static CBigNum GetProofOfStakeLimit(int nHeight)
     return bnProofOfStakeLimit;
 }
 
+/*
+ Voted reward on 2018-01-26 :
+ Current block : 45 000
+ 1m = 1 block
+ 1h = 60 block
+ 1day = 24*60 = 1440 block
+ 1 month = 30.5*1440 = 43920 => rounded = 44k
+ 1y = 12 * 44k = 528k
+ T + 3 months 25 LIZ (Pow + Pos 12.5) / (Mns 12.5) > 50% Pow + Pos & 50% Mns -> 45k+44k = 89 k
+ T + 1 Year 21.5 LIZ (Pow + Pos 10.2) / (Mns 11.05) > 48% Pow + Pos & 52% Mns -> 45k+528k = 573 k
+ T + 2 Year 19.47 LIZ (Pow + Pos 8.96) / (Mns 10.51) > 46% Pow + Pos & 54% Mns -> 573k+528k = 1101 k
+ T + 3 Year 17.85 LIZ (Pow + Pos 7.49) / (Mns 10.3) > 42% Pow + Pos & 58% Mns -> 1629 k
+ T + 4 Year 16.36 LIZ (Pow + Pos 6.21) / (Mns 10.14) > 38% Pow + Pos & 62% Mns -> 2157 k
+ T + 5 Year 15 LIZ (Pow + Pos 5.10) / (Mns 9.90) > 34% Pow + Pos & 66% Mns -> 2685 k
+ 
+ */
+
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
 {
@@ -1366,23 +1383,81 @@ int64_t GetProofOfWorkReward(int nHeight, int64_t nFees)
     else if (nHeight > 50 && nHeight <= 350) {
         nSubsidy = 1 * COIN;  // instamine prevention
     }            
-    else if (nHeight > 350) {
+    else if (nHeight > 350 && nHeight <= 89 * 1000) {
         nSubsidy = 12.5 * COIN; // initial block reward
     }
+    else if (nHeight > 89 * 1000 && nHeight <= 573 * 1000) {
+        nSubsidy = 10.2 * COIN;
+    }
+    else if (nHeight > 573 * 1000 && nHeight <= 1101 * 1000) {
+        nSubsidy = 8.96 * COIN;
+    }
+    else if (nHeight > 1101 * 1000 && nHeight <= 1629 * 1000) {
+        nSubsidy = 7.49 * COIN;
+    }
+    else if (nHeight > 1629 * 1000 && nHeight <= 2157 * 1000) {
+        nSubsidy = 6.21 * COIN;
+    }
+    else if (nHeight > 2157 * 1000 && nHeight <= 2685 * 1000) {
+        nSubsidy = 5.10 * COIN;
+    }
+    else if (nHeight > 2685 * 1000) {
+        nSubsidy = 0 * COIN; //End of POW
+    }
     return nSubsidy + nFees;
-
 }
 
 // miner's coin stake reward
 int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees)
 {
     int64_t nSubsidy = 0;
+    int nHeight = pindexBest->nHeight;
 
-    if (pindexBest->nHeight+1 > 51) {
+    if (nHeight > 50 && nHeight <= 89 * 1000) {
         nSubsidy = 25 * COIN;
     }
-        
+    else if (nHeight > 89 * 1000 && nHeight <= 573 * 1000) {
+        nSubsidy = (10.2 + 11.05) * COIN;
+    }
+    else if (nHeight > 573 * 1000 && nHeight <= 1101 * 1000) {
+        nSubsidy = (8.96 + 10.51) * COIN;
+    }
+    else if (nHeight > 1101 * 1000 && nHeight <= 1629 * 1000) {
+        nSubsidy = (7.49 + 10.3) * COIN;
+    }
+    else if (nHeight > 1629 * 1000 && nHeight <= 2157 * 1000) {
+        nSubsidy = (6.21 + 10.14) * COIN;
+    }
+    else if (nHeight > 2157 * 1000) {
+        nSubsidy = (5.10 + 9.90) * COIN;
+    }
     return nSubsidy + nFees;
+}
+
+// Splitting of Masternode/Stake reward.
+int64_t GetMasternodePayment(int nHeight, int64_t blockValue)
+{
+    int64_t ret = 0;
+    
+    if (nHeight > 50 && nHeight <= 89 * 1000) {
+        ret = blockValue * 50 / 100;
+    }
+    else if (nHeight > 89 * 1000 && nHeight <= 573 * 1000) {
+        ret = blockValue * 52 / 100;
+    }
+    else if (nHeight > 573 * 1000 && nHeight <= 1101 * 1000) {
+        ret = blockValue * 54 / 100;
+    }
+    else if (nHeight > 1101 * 1000 && nHeight <= 1629 * 1000) {
+        ret = blockValue * 58 / 100;
+    }
+    else if (nHeight > 1629 * 1000 && nHeight <= 2157 * 1000) {
+        ret = blockValue * 62 / 100;
+    }
+    else if (nHeight > 2157 * 1000) {
+        ret = blockValue * 66 / 100;
+    }
+    return ret;
 }
 
 static int64_t nTargetTimespan = 10 * 60;  // 10 mins
@@ -4485,11 +4560,3 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
     return true;
 }
 
-
-
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue)
-{
-    int64_t ret = blockValue / 2;
-
-    return ret;
-}

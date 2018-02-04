@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = lizus-qt
-VERSION = 1.0.0.1
+VERSION = 1.0.1.0
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 QT += network printsupport
 DEFINES += ENABLE_WALLET
@@ -10,6 +10,8 @@ CONFIG += thread
 CONFIG += static
 #CONFIG += openssl-linked
 CONFIG += openssl
+
+macx:QMAKE_COPY_FILE = gcp
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets

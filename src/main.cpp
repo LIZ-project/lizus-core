@@ -1357,9 +1357,9 @@ static CBigNum GetProofOfStakeLimit(int nHeight)
  Current block : 45 000
  1m = 1 block
  1h = 60 block
- 1day = 24*60 = 1440 block
- 1 month = 30.5*1440 = 43920 => rounded = 44k
- 1y = 12 * 44k = 528k
+ 1day = 24x60 = 1440 block
+ 1 month = 30.5x1440 = 43920 => rounded = 44k
+ 1y = 12 x 44k = 528k
  T + 3 months 25 LIZ (Pow + Pos 12.5) / (Mns 12.5) > 50% Pow + Pos & 50% Mns -> 45k+44k = 89 k
  T + 1 Year 21.5 LIZ (Pow + Pos 10.2) / (Mns 11.05) > 48% Pow + Pos & 52% Mns -> 45k+528k = 573 k
  T + 2 Year 19.47 LIZ (Pow + Pos 8.96) / (Mns 10.51) > 46% Pow + Pos & 54% Mns -> 573k+528k = 1101 k

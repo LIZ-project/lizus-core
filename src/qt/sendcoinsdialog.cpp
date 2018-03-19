@@ -166,9 +166,50 @@ void SendCoinsDialog::setModel(WalletModel *model)
                 entry->setModel(model);
             }
         }
-        setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance(), model->getAnonymizedBalance(),
-        	model->getWatchBalance(), model->getWatchStake(), model->getWatchUnconfirmedBalance(), model->getWatchImmatureBalance());
-        connect(model, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this, SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
+        
+        setBalance(
+            model->getBalance(), 
+            model->getStake(), 
+            model->getUnconfirmedBalance(), 
+            model->getImmatureBalance(), 
+            model->getAnonymizedBalance(),
+        	model->getWatchBalance(), 
+            model->getWatchStake(), 
+            model->getWatchUnconfirmedBalance(), 
+            model->getWatchImmatureBalance()
+        );
+        
+        connect(
+            model, 
+            SIGNAL(
+                balanceChanged(
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount
+                )
+            ), 
+            this, 
+            SLOT(
+                setBalance(
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount, 
+                    CAmount
+                )
+            )
+        );
+
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
         updateDisplayUnit();
 
@@ -299,6 +340,8 @@ void SendCoinsDialog::on_sendButton_clicked()
     // this way we let users unlock by walletpassphrase or by menu
     // and make many transactions while unlocking through this dialog
     // will call relock
+    // TODOCLC: potentially where bug lies when not able to send coins
+    // until fully unlocked
     WalletModel::EncryptionStatus encStatus = model->getEncryptionStatus();
     if(encStatus == model->Locked || encStatus == model->UnlockedForAnonymizationOnly)
     {

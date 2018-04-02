@@ -1,6 +1,6 @@
-Lizus Payments
+Ubuntu 16.04 Building instructions
 
-Download the source
+git clone https://github.com/lizuspayments/lizus-core
 cd src
 chmod 755 leveldb/*
 make -f makefile.unix

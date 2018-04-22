@@ -1,3 +1,8 @@
+
+LIZ is a cryptocurrency and a secure decentralized platform designed as a general purpose tool allowing better and
+secure way to conduct businesses. 
+
+
 Ubuntu 16.04 Building instructions
 
 git clone https://github.com/lizuspayments/lizus-core

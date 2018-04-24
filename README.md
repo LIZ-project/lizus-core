@@ -1,6 +1,6 @@
 # Ubuntu 16.04 Building instructions
 
-git clone https://github.com/lizuspayments/lizus-core
+git clone https://github.com/LIZ-project/lizus-core.git
 
 cd lizus-core/src
 

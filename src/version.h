@@ -55,7 +55,7 @@ static const int MIN_MASTERNODE_PAYMENT_PROTO_VERSION_2 = 30004;
 static const int CADDR_TIME_VERSION = 10000;
 
 // only request blocks from nodes outside this range of versions
-static const int NOBLKS_VERSION_START = 0;
+static const int NOBLKS_VERSION_START = 30003;
 static const int NOBLKS_VERSION_END = 30004;
 
 // BIP 0031, pong message, is enabled for all versions AFTER this one

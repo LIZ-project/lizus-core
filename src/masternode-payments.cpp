@@ -22,7 +22,7 @@ int CMasternodePayments::GetMinMasternodePaymentsProto() {
     if (nBestHeight >= 258500) {
         return MIN_MASTERNODE_PAYMENT_PROTO_VERSION_2;
     }
-    else if (nBestHeight >= 160000 && nBestHeigh < 258500) {
+    else if (nBestHeight >= 160000 && nBestHeight < 258500) {
         return MIN_MASTERNODE_PAYMENT_PROTO_VERSION_1;
     }
     return (30001);

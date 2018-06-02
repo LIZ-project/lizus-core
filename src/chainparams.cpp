@@ -111,7 +111,7 @@ public:
         // strSporkKey = "044641223ef068e61bee2f836eaf65a0f364cbd9d634c0b3c4211db1911d885e2cf3836ae2eb9c002827b67de999c71920a33f01ff75161f0ddbea63916d879ae7"
         // strMasternodePaymentsPubKey = "048598d4a1db6a25ae5916d3ceea0144ba9bc6442f7f96e07f49ca224b8e643f54d18d3c78d7dbd04644b55871eab1137d34ac14d2422aaae74ca816bcd470169c"
         strDarksendPoolDummyAddress = "9frEPbxv2ANZzrViEqTCWaBL8S63FQHz9s";
-        nLastPOWBlock = 253000;
+        nLastPOWBlock = 2685000; // 5 years
         nPOSStartBlock = 100;
     }
 
